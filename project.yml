@@ -1,0 +1,25 @@
+name: SlowTV
+options:
+  bundleIdPrefix: com.austinellis
+  deploymentTarget:
+    macOS: "15.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: false
+
+targets:
+  SlowTV:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.austinellis.slow-tv-controller
+        PRODUCT_NAME: SlowTV Controller
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "6.0"
+        MACOSX_DEPLOYMENT_TARGET: "15.0"
+        INFOPLIST_KEY_LSUIElement: true
+        CODE_SIGN_ENTITLEMENTS: SlowTV.entitlements
+        CODE_SIGN_STYLE: Automatic

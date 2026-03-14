@@ -1,0 +1,18 @@
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# Build
+build/
+
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Editor
+*.swp
+*~
