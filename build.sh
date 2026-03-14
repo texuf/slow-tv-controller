@@ -52,6 +52,6 @@ cat > "$CONTENTS/Info.plist" << PLIST
 PLIST
 
 # Code-sign so macOS TCC keeps accessibility permission across rebuilds
-codesign --force --sign - --identifier com.austinellis.slow-tv-controller "$APP_BUNDLE"
+codesign --force --sign "Apple Development" --identifier com.austinellis.slow-tv-controller "$APP_BUNDLE"
 
 echo "Built: $APP_BUNDLE"

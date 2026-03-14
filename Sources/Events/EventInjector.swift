@@ -57,6 +57,16 @@ final class EventInjector {
         postKeyUp(keyCode)
     }
 
+    func postBrowserBack() {
+        // Cmd+[ is the standard browser back shortcut
+        guard let down = CGEvent(keyboardEventSource: nil, virtualKey: KeyCode.leftBracket, keyDown: true),
+              let up = CGEvent(keyboardEventSource: nil, virtualKey: KeyCode.leftBracket, keyDown: false) else { return }
+        down.flags = .maskCommand
+        up.flags = .maskCommand
+        down.post(tap: .cgSessionEventTap)
+        up.post(tap: .cgSessionEventTap)
+    }
+
     // MARK: - Scroll
 
     func postScroll(deltaY: Int32) {

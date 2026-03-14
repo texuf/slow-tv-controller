@@ -43,9 +43,9 @@ final class InputMapper {
             return actions  // Don't process other inputs when triggering kill switch
         }
 
-        // Left stick → pointer movement
+        // Right stick → pointer movement
         let precisionMode = current.leftTrigger > 0.3
-        actions.append(.movePointer(x: current.leftStickX, y: current.leftStickY, precision: precisionMode))
+        actions.append(.movePointer(x: current.rightStickX, y: current.rightStickY, precision: precisionMode))
 
         // A (Cross) → left click
         if current.buttonA && !previous.buttonA {
@@ -54,13 +54,9 @@ final class InputMapper {
             actions.append(.leftClickUp)
         }
 
-        // B (Circle) → right click (only when menu not held — otherwise it's kill switch)
+        // B (Circle) → browser back (only when menu not held — otherwise it's kill switch)
         if !current.buttonMenu {
-            if current.buttonB && !previous.buttonB {
-                actions.append(.rightClickDown)
-            } else if !current.buttonB && previous.buttonB {
-                actions.append(.rightClickUp)
-            }
+            if current.buttonB && !previous.buttonB { actions.append(.browserBack) }
         }
 
         // R2 → drag
@@ -93,9 +89,9 @@ final class InputMapper {
         if current.rightShoulder && !previous.rightShoulder { actions.append(.keyDown(KeyCode.returnKey)) }
         if !current.rightShoulder && previous.rightShoulder { actions.append(.keyUp(KeyCode.returnKey)) }
 
-        // Right stick Y → scroll
-        if abs(current.rightStickY) > scrollThreshold {
-            let scrollDelta = Int32(-current.rightStickY * scrollSpeed)
+        // Left stick Y → scroll
+        if abs(current.leftStickY) > scrollThreshold {
+            let scrollDelta = Int32(current.leftStickY * scrollSpeed)
             if scrollDelta != 0 {
                 actions.append(.scroll(deltaY: scrollDelta))
             }
@@ -142,9 +138,17 @@ final class InputMapper {
                 guard appState.canInject else { continue }
                 eventInjector.postKeyUp(keyCode)
 
+            case .keyPress(let keyCode):
+                guard appState.canInject else { continue }
+                eventInjector.postKeyPress(keyCode)
+
             case .scroll(let deltaY):
                 guard appState.canInject else { continue }
                 eventInjector.postScroll(deltaY: deltaY)
+
+            case .browserBack:
+                guard appState.canInject else { continue }
+                eventInjector.postBrowserBack()
 
             case .killSwitch:
                 killSwitch.activate()

@@ -15,6 +15,9 @@ final class ControllerManager {
     private var pollCount = 0
 
     func startDiscovery() {
+        // Required for menu bar / background apps to receive controller input
+        GCController.shouldMonitorBackgroundEvents = true
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(controllerConnected(_:)),

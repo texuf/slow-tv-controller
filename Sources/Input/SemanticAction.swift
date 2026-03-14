@@ -10,7 +10,9 @@ enum SemanticAction {
     case dragUp
     case keyDown(CGKeyCode)
     case keyUp(CGKeyCode)
+    case keyPress(CGKeyCode)
     case scroll(deltaY: Int32)
+    case browserBack
     case killSwitch
 }
 
@@ -22,4 +24,5 @@ enum KeyCode {
     static let downArrow: CGKeyCode = 125
     static let leftArrow: CGKeyCode = 123
     static let rightArrow: CGKeyCode = 124
+    static let leftBracket: CGKeyCode = 33
 }
